@@ -17,10 +17,18 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/about', function () use ($router) {
-	return "About the API";
+$router->group(['prefix' => 'api'], function () use ($router) {
+	$router->get('jobs', ['uses' => 'JobController@showAllJobs']);
+	$router->get('jobs/{id}', ['uses' => 'JobController@showOneJob']);
+	$router->post('jobs', ['uses' => 'JobController@create']);
+	$router->delete('jobs/{id}', ['uses' => 'JobController@delete']);
+	$router->put('jobs/{id}', ['uses' => 'JobController@update']);
 });
 
-$router->get('/job/{id}', function ($id) {
-	return "Job: " . $id;
-});
+// $router->get('/about', function () use ($router) {
+// 	return "About the API";
+// });
+
+// $router->get('/job/{id}', function ($id) {
+// 	return "Job: " . $id;
+// });
