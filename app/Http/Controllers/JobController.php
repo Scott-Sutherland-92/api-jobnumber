@@ -27,8 +27,6 @@ class JobController extends Controller
         
         $job = Job::create($request->all());
 
-        Log::info("Job #" . $job["id"] . " Created");
-
         return response()->json($job, 201);
     }
 

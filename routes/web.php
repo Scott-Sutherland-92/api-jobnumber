@@ -17,10 +17,10 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
 	$router->get('jobs', ['uses' => 'JobController@showAllJobs']);
 	$router->get('jobs/{id}', ['uses' => 'JobController@showOneJob']);
-	$router->post('jobs', ['uses' => 'JobController@create']);
+	$router->post('jobs', ['middleware' => 'auth:create:jobs', 'uses' => 'JobController@create']);
 	$router->delete('jobs/{id}', ['uses' => 'JobController@delete']);
 	$router->put('jobs/{id}', ['uses' => 'JobController@update']);
 });
